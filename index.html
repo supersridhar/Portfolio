@@ -1,153 +1,1058 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sridhar | Head – Data & AI Practice</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sridhar S — Head of Data Engineering</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg:        #0b0f1a;
+      --surface:   #111827;
+      --card:      #161d2e;
+      --border:    #1e2d45;
+      --accent:    #00d4ff;
+      --accent2:   #7c3aed;
+      --gold:      #f59e0b;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --light:     #94a3b8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
-      background: #f4f4f9;
-      color: #333;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
-    header {
-      background: #2c3e50;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
     }
-    header h1 { margin: 0; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* ── NAV ── */
     nav {
-      background: #34495e;
-      padding: 10px;
-      text-align: center;
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(11,15,26,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
     }
-    nav a {
-      color: #fff;
-      margin: 0 15px;
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
       text-decoration: none;
-      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
     }
-    section {
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 0 6rem;
+      gap: 4rem;
+      position: relative;
+      overflow: hidden;
     }
-    h2 {
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 5px;
-      color: #2c3e50;
+
+    /* Decorative grid lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
     }
-    ul { line-height: 1.6; }
-    footer {
-      background: #2c3e50;
-      color: #fff;
+
+    .hero-text { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #e2e8f0 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--light);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.8rem;
+      border-radius: 4px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 500;
+    }
+    .btn-primary:hover { background: #00b8d9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,255,0.25); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* Hero visual side */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-ring {
+      position: relative;
+      width: 340px; height: 340px;
+    }
+    .profile-ring::before {
+      content: '';
+      position: absolute; inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(var(--accent), var(--accent2), var(--gold), var(--accent));
+      animation: spin 8s linear infinite;
+    }
+    .profile-ring::after {
+      content: '';
+      position: absolute; inset: -16px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,212,255,0.15);
+      animation: spin 20s linear infinite reverse;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .profile-img {
+      position: absolute; inset: 4px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .profile-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    .profile-img-fallback {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 5rem;
+      color: var(--accent);
+      background: linear-gradient(135deg, var(--surface), var(--card));
+      border-radius: 50%;
+    }
+
+    .exp-badge {
+      position: absolute;
+      bottom: 20px; right: -20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.8rem 1.2rem;
       text-align: center;
-      padding: 15px;
-      margin-top: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .exp-badge .num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+    }
+    .exp-badge .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 6rem 6rem;
+      position: relative;
+    }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1; max-width: 60px; height: 1px;
+      background: var(--accent);
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      line-height: 1.1;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+    .stat-desc {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p {
+      color: var(--light);
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+    }
+    .about-certs { display: flex; flex-direction: column; gap: 0.75rem; }
+    .cert-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.9rem 1.2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+    .cert-item:hover { border-color: var(--accent); }
+    .cert-icon { font-size: 1.2rem; }
+    .cert-name {
+      font-size: 0.88rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--surface); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.8rem;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .skill-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 40px rgba(0,212,255,0.08);
+    }
+    .skill-card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .skill-card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(0,212,255,0.08);
+      color: var(--accent);
+      border: 1px solid rgba(0,212,255,0.2);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── EXPERIENCE ── */
+    .timeline { position: relative; padding-left: 2.5rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color 0.2s;
+    }
+    .timeline-item:hover { border-color: rgba(0,212,255,0.4); }
+    .timeline-dot {
+      position: absolute;
+      left: -2.9rem; top: 2rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 12px var(--accent);
+    }
+    .timeline-meta {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .timeline-company {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .timeline-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--surface);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .timeline-role {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+    .timeline-bullets { list-style: none; }
+    .timeline-bullets li {
+      font-size: 0.9rem;
+      color: var(--light);
+      padding: 0.3rem 0;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+    .timeline-bullets li::before {
+      content: '▸';
+      position: absolute; left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+      top: 0.35rem;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--surface); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      display: flex; flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent2);
+      box-shadow: 0 12px 40px rgba(124,58,237,0.1);
+    }
+    .project-category {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--light);
+      flex: 1;
+      margin-bottom: 1.2rem;
+    }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .tag-alt {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.65rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      background: rgba(124,58,237,0.1);
+      color: #a78bfa;
+      border: 1px solid rgba(124,58,237,0.25);
+    }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item {
+      display: flex; align-items: center; gap: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-item:hover { border-color: var(--accent); transform: translateX(4px); }
+    .contact-icon { font-size: 1.3rem; }
+    .contact-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+    }
+    .contact-value { font-size: 0.95rem; color: var(--text); }
+
+    .contact-tagline {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      line-height: 1.25;
+      color: var(--text);
+    }
+    .contact-tagline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 6rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--surface);
+    }
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; padding: 6rem 2rem 3rem; text-align: center; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-desc { margin: 0 auto 2.5rem; }
+      .hero-cta { justify-content: center; }
+      .hero-visual { margin-top: 2rem; }
+      section, .stats, footer { padding-left: 2rem; padding-right: 2rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Sridhar</h1>
-    <p>Head – Data & AI Practice | Senior Data Engineering & Analytics Leader</p>
-    <p>Pune, India | <a href="mailto:post2sridhar@yahoo.co.in" style="color:#fff;">post2sridhar@yahoo.co.in</a> | <a href="tel:9167341227" style="color:#fff;">+91 9167341227</a></p>
-  </header>
 
+  <!-- NAV -->
   <nav>
-    <a href="#summary">Profile</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#projects">Projects</a>
+    <div class="nav-logo">Sridhar S</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
 
-  <section id="summary">
-    <h2>Profile Summary</h2>
-    <ul>
-      <li>21+ years of expertise in Data Engineering, Data Management, Migration & Modernization.</li>
-      <li>Led and mentored large teams across Azure, GCP, AWS, Databricks, and Snowflake.</li>
-      <li>Built and scaled MS Fabric, Databricks, and GCP practices from scratch.</li>
-      <li>Strong expertise in DW/BI technologies, Big Data stack, and cloud-native architectures.</li>
-      <li>Proven track record in delivery excellence, project governance, and client recognition.</li>
-    </ul>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Data Engineering Leader</p>
+      <h1 class="hero-name">Sridhar S</h1>
+      <p class="hero-title">Head — Data Engineering & AI</p>
+      <p class="hero-desc">
+        21+ years architecting enterprise-scale Data Warehouses, Cloud Platforms,
+        and AI-driven modernization programs across Banking, Retail, and Healthcare domains.
+      </p>
+      <div class="hero-cta">
+        <a href="#experience" class="btn btn-primary">View Experience ↓</a>
+        <a href="mailto:post2sridhar@yahoo.co.in" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="profile-ring">
+        <div class="profile-img">
+          <img src="assets/img/mypic.jpg" alt="Sridhar S"
+               onerror="this.parentElement.innerHTML='<div class=\'profile-img-fallback\'>S</div>'" />
+        </div>
+        <div class="exp-badge">
+          <span class="num">21+</span>
+          <span class="label">Years Exp.</span>
+        </div>
+      </div>
+    </div>
   </section>
 
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-item fade-up">
+      <span class="stat-num">21+</span>
+      <span class="stat-desc">Years of Expertise</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-num">75%</span>
+      <span class="stat-desc">Discovery Phase Speedup</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-num">30%</span>
+      <span class="stat-desc">Effort Saved via Frameworks</span>
+    </div>
+    <div class="stat-item fade-up">
+      <span class="stat-num">7+</span>
+      <span class="stat-desc">Cloud Certifications</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label">01. About</p>
+    <h2 class="section-title">Profile Summary</h2>
+    <div class="about-grid">
+      <div class="about-text fade-up">
+        <p>
+          With over two decades of experience managing complex end-to-end projects in Data Warehousing,
+          Big Data, and Cloud, I specialize in executing strategic DW/BI transformations for clients
+          in Banking, Retail, and Healthcare.
+        </p>
+        <p>
+          My deep expertise spans <strong>Azure, GCP, and AWS</strong> — with hands-on delivery across
+          Azure Data Factory, BigQuery, Databricks, Redshift, and Snowflake.
+          I lead practices, mentor cross-functional teams, and drive GenAI-powered automation
+          to accelerate Data Migration and Modernization programs.
+        </p>
+        <p>
+          Currently at <strong>Parkar Digital</strong> as Associate Vice President / Head of Data &amp; AI,
+          I founded and scaled Databricks and MS Fabric practices, elevated partner-tier relationships,
+          and championed Agentic AI across the enterprise data lifecycle.
+        </p>
+      </div>
+      <div class="fade-up">
+        <p class="section-label" style="margin-bottom:1rem;">Certifications</p>
+        <div class="about-certs">
+          <div class="cert-item">
+            <span class="cert-icon">☁️</span>
+            <span class="cert-name">Google Cloud Professional Architect</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-icon">🐍</span>
+            <span class="cert-name">PCAP — Python Programming</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-icon">🔷</span>
+            <span class="cert-name">Databricks Professional Data Engineer</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-icon">🌊</span>
+            <span class="cert-name">Apache Airflow Certified</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-icon">🕸️</span>
+            <span class="cert-name">neo4j Graph Database</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-icon">📊</span>
+            <span class="cert-name">DP-600 MS Fabric Analytics Engineer Associate</span>
+          </div>
+          <div class="cert-item">
+            <span class="cert-icon">🗄️</span>
+            <span class="cert-name">Teradata V14</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-label">02. Skills</p>
+    <h2 class="section-title">Technical Expertise</h2>
+    <div class="skills-grid">
+      <div class="skill-card fade-up">
+        <span class="skill-card-icon">☁️</span>
+        <h3 class="skill-card-title">Cloud Platforms</h3>
+        <div class="skill-tags">
+          <span class="tag">GCP</span>
+          <span class="tag">Azure</span>
+          <span class="tag">AWS</span>
+          <span class="tag">BigQuery</span>
+          <span class="tag">Azure Synapse</span>
+          <span class="tag">Redshift</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-card-icon">⚡</span>
+        <h3 class="skill-card-title">Data Engineering</h3>
+        <div class="skill-tags">
+          <span class="tag">Databricks</span>
+          <span class="tag">Snowflake</span>
+          <span class="tag">ADF</span>
+          <span class="tag">Airflow</span>
+          <span class="tag">Composer</span>
+          <span class="tag">MS Fabric</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-card-icon">🐘</span>
+        <h3 class="skill-card-title">Big Data Stack</h3>
+        <div class="skill-tags">
+          <span class="tag">Spark</span>
+          <span class="tag">HDFS</span>
+          <span class="tag">Hive</span>
+          <span class="tag">Sqoop</span>
+          <span class="tag">Scala</span>
+          <span class="tag">PySpark</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-card-icon">🏛️</span>
+        <h3 class="skill-card-title">Architecture</h3>
+        <div class="skill-tags">
+          <span class="tag">DataMesh</span>
+          <span class="tag">DataFabric</span>
+          <span class="tag">Data Lake</span>
+          <span class="tag">EDW</span>
+          <span class="tag">Data Quality</span>
+          <span class="tag">Governance</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-card-icon">🤖</span>
+        <h3 class="skill-card-title">GenAI & Automation</h3>
+        <div class="skill-tags">
+          <span class="tag">Agentic AI</span>
+          <span class="tag">Code Discovery</span>
+          <span class="tag">ChatGPT API</span>
+          <span class="tag">Bard API</span>
+          <span class="tag">Python</span>
+          <span class="tag">neo4j</span>
+        </div>
+      </div>
+      <div class="skill-card fade-up">
+        <span class="skill-card-icon">📋</span>
+        <h3 class="skill-card-title">Legacy & ETL</h3>
+        <div class="skill-tags">
+          <span class="tag">Teradata</span>
+          <span class="tag">Informatica</span>
+          <span class="tag">Netezza</span>
+          <span class="tag">SSIS</span>
+          <span class="tag">Control-M</span>
+          <span class="tag">BOBJ</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
   <section id="experience">
-    <h2>Experience</h2>
-    <h3>Parkar Digital (2025–Present) – Associate VP / Head of Data & AI</h3>
-    <ul>
-      <li>Founded Databricks & MS Fabric practices, elevated partnerships.</li>
-      <li>Owned end-to-end delivery of modernization, migration, and governance projects.</li>
-      <li>Championed Agentic AI initiatives embedding automation into programs.</li>
-    </ul>
+    <p class="section-label">03. Experience</p>
+    <h2 class="section-title">Career Journey</h2>
+    <div class="timeline">
 
-    <h3>Happiest Minds (2024–2025) – Senior Data Architect</h3>
-    <ul>
-      <li>Built MS Fabric & GCP practice teams from scratch.</li>
-      <li>Designed SQL Server DW migration architecture using ADF.</li>
-      <li>Mentored high-performing teams of engineers and AI specialists.</li>
-    </ul>
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-company">Parkar Digital</span>
+          <span class="timeline-period">2025 — Present</span>
+        </div>
+        <h3 class="timeline-role">Associate Vice President / Head of Data & AI</h3>
+        <ul class="timeline-bullets">
+          <li>Founded and scaled Databricks Practice and MS Fabric Practice from ground up; elevated Databricks Partnership tier.</li>
+          <li>Own end-to-end delivery across Modernization, Migration, and Data Governance programs.</li>
+          <li>Led RFP solutioning with modern stack (GCP, AWS, Azure, Databricks, Snowflake), validating estimations and presenting to clients.</li>
+          <li>Championed Agentic AI initiatives, embedding automation into data modernization and migration programs.</li>
+          <li>Elevated hyperscaler partnerships, strengthening ecosystem alliances and expanding market reach.</li>
+        </ul>
+      </div>
 
-    <h3>Accenture (2021–2024) – Data Architect Senior Manager</h3>
-    <ul>
-      <li>Developed POVs/POCs for GCP Data Services with Gen-AI automation.</li>
-      <li>Designed enterprise data platforms on Azure & GCP.</li>
-      <li>Automated code discovery reducing efforts by 75%.</li>
-    </ul>
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-company">Happiest Minds</span>
+          <span class="timeline-period">2024 — 2025</span>
+        </div>
+        <h3 class="timeline-role">Senior Data Architect / Data Practice — Location Head</h3>
+        <ul class="timeline-bullets">
+          <li>Led the analytics sub-practice, overseeing strategic initiatives, team development, and project delivery.</li>
+          <li>Built MS Fabric and GCP practice teams from scratch, accelerating capability growth and client adoption.</li>
+          <li>Designed MS Fabric architecture for SQL Server DW migrations and developed metadata-driven ingestion tools using ADF.</li>
+          <li>Built, mentored, and led high-performing teams of data engineers, data scientists, and AI specialists.</li>
+        </ul>
+      </div>
 
-    <h3>Datametica (2017–2021) – Delivery Manager</h3>
-    <ul>
-      <li>Directed EDW projects, saving 25% coding/testing efforts via frameworks.</li>
-      <li>Architected solutions integrating BigQuery, Dataproc, Dataflow.</li>
-    </ul>
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-company">Accenture</span>
+          <span class="timeline-period">2021 — 2024</span>
+        </div>
+        <h3 class="timeline-role">Data Architect Senior Manager</h3>
+        <ul class="timeline-bullets">
+          <li>Developed POVs and POCs for GCP Data Services and automations using GenAI.</li>
+          <li>Automated code discovery for Airflow Scheduler and PySpark — reduced efforts by 75%.</li>
+          <li>Designed enterprise data platforms including data lakes and data fabric on Azure and GCP.</li>
+          <li>Led discovery workshops, crafted technical proposals (RFPs), and conducted client presentations.</li>
+        </ul>
+      </div>
 
-    <h3>Accenture (2013–2017) – Associate Manager</h3>
-    <ul>
-      <li>Architected ETL processes with robust error handling.</li>
-      <li>Conducted Teradata trainings at org level.</li>
-    </ul>
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-company">Datametica</span>
+          <span class="timeline-period">2017 — 2021</span>
+        </div>
+        <h3 class="timeline-role">Delivery Manager</h3>
+        <ul class="timeline-bullets">
+          <li>Directed project kick-offs, planning, estimation, and tracking in collaboration with Project Leads.</li>
+          <li>Demonstrated EDW frameworks that saved 25% of coding and testing efforts.</li>
+          <li>Architected solutions integrating Cloud Storage, BigQuery, Dataproc, and Dataflow.</li>
+          <li>Designed and implemented data lake on Azure VMs for HDP utilizing ADLS.</li>
+        </ul>
+      </div>
 
-    <h3>TCS/Wipro/Dell (2005–2012) – ETL Architect</h3>
-    <ul>
-      <li>Designed and built Informatica & Teradata ETL objects.</li>
-      <li>Provided training and troubleshooting support.</li>
-    </ul>
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-company">Accenture</span>
+          <span class="timeline-period">2013 — 2017</span>
+        </div>
+        <h3 class="timeline-role">Associate Manager</h3>
+        <ul class="timeline-bullets">
+          <li>Collaborated with customers to define requirements and use cases.</li>
+          <li>Engaged stakeholders to prioritize EDW Solutions roadmaps and deliverables.</li>
+          <li>Architected ETL processes with robust error handling and logging mechanisms.</li>
+          <li>Conducted quarterly Teradata training at organization level.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item fade-up">
+        <div class="timeline-dot"></div>
+        <div class="timeline-meta">
+          <span class="timeline-company">TCS / Wipro / Dell</span>
+          <span class="timeline-period">2005 — 2012</span>
+        </div>
+        <h3 class="timeline-role">ETL Architect</h3>
+        <ul class="timeline-bullets">
+          <li>Analyzed requirements and prepared ETL Design documents.</li>
+          <li>Built Informatica and Teradata ETL objects.</li>
+          <li>Designed scheduling objects and directed team development.</li>
+          <li>Provided training to ETL developers and supported development and production phases.</li>
+        </ul>
+      </div>
+
+    </div>
   </section>
 
-  <section id="education">
-    <h2>Education</h2>
-    <ul>
-      <li>MCA – Bharathiyar University (2004)</li>
-      <li>B.Sc. Computer Science – Periyar University (2001)</li>
-    </ul>
-  </section>
-
-  <section id="certifications">
-    <h2>Certifications</h2>
-    <ul>
-      <li>Google Cloud Professional Architect</li>
-      <li>Databricks Professional Data Engineer</li>
-      <li>DP-600 MS Fabric Analytics Engineer Associate</li>
-      <li>Apache Airflow | Neo4j | Teradata V14</li>
-      <li>PCAP – Python Programming</li>
-    </ul>
-  </section>
-
+  <!-- PROJECTS -->
   <section id="projects">
-    <h2>Key Projects</h2>
-    <ul>
-      <li>Architected DataMesh/DataFabric solutions on GCP & Azure.</li>
-      <li>Designed dynamic data security architectures for Databricks & Snowflake.</li>
-      <li>Automated migration tasks with Gen-AI, reducing discovery phase by 75%.</li>
-      <li>Developed reusable ingestion, orchestration, and auditing frameworks.</li>
-    </ul>
+    <p class="section-label">04. Projects</p>
+    <h2 class="section-title">Key Assignments</h2>
+    <div class="projects-grid">
+
+      <div class="project-card fade-up">
+        <p class="project-category">Data Discovery</p>
+        <h3 class="project-title">EDW Discovery & Migration Wave Planning</h3>
+        <p class="project-desc">
+          Spearheaded data, scheduler, and code discovery tools. Used neo4j for table/job lineage,
+          processed inventory, and created dependency-driven migration wave plans.
+        </p>
+        <div class="project-tech">
+          <span class="tag-alt">neo4j</span>
+          <span class="tag-alt">Teradata</span>
+          <span class="tag-alt">Netezza</span>
+          <span class="tag-alt">Databricks</span>
+          <span class="tag-alt">GCP</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <p class="project-category">Data Governance</p>
+        <h3 class="project-title">Data Quality & Security Frameworks</h3>
+        <p class="project-desc">
+          Designed a Data Quality Framework for GCP BigQuery, revamped security architectures from
+          Teradata/BOBJ to Databricks/Snowflake, and devised a Data Retention Framework.
+        </p>
+        <div class="project-tech">
+          <span class="tag-alt">Teradata</span>
+          <span class="tag-alt">Informatica</span>
+          <span class="tag-alt">GCP</span>
+          <span class="tag-alt">Databricks</span>
+          <span class="tag-alt">Snowflake</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <p class="project-category">Cloud Migration</p>
+        <h3 class="project-title">Netezza → GCP BigQuery Migration</h3>
+        <p class="project-desc">
+          Designed target-state technical architecture, managed delivery lifecycle, and led
+          assessment, estimation, design, build, testing, and UAT support phases.
+        </p>
+        <div class="project-tech">
+          <span class="tag-alt">Netezza</span>
+          <span class="tag-alt">BigQuery</span>
+          <span class="tag-alt">Informatica</span>
+          <span class="tag-alt">Databricks</span>
+          <span class="tag-alt">Azure</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <p class="project-category">GenAI Automation</p>
+        <h3 class="project-title">Code Discovery Tools using GenAI</h3>
+        <p class="project-desc">
+          Developed code discovery automation for Airflow, PySpark, and Control-M using GenAI —
+          accelerating the discovery phase by 75% and implemented test case/code conversion POCs.
+        </p>
+        <div class="project-tech">
+          <span class="tag-alt">Python</span>
+          <span class="tag-alt">Airflow</span>
+          <span class="tag-alt">PySpark</span>
+          <span class="tag-alt">ChatGPT API</span>
+          <span class="tag-alt">Bard API</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <p class="project-category">Data Modernization</p>
+        <h3 class="project-title">EDW Operations for Healthcare</h3>
+        <p class="project-desc">
+          Constructed target architecture using Databricks and Snowflake. Promoted reusable ingestion
+          components that improved estimation accuracy by 30% effort reduction.
+        </p>
+        <div class="project-tech">
+          <span class="tag-alt">Databricks</span>
+          <span class="tag-alt">Snowflake</span>
+          <span class="tag-alt">PySpark</span>
+          <span class="tag-alt">Hive</span>
+          <span class="tag-alt">Azure</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-up">
+        <p class="project-category">Center of Excellence</p>
+        <h3 class="project-title">GCP / AWS / Databricks Data Practice</h3>
+        <p class="project-desc">
+          Built reference architectures, created playbooks, led blogs/whitepapers, formulated
+          capability roadmaps, and drove professional certification programs across teams.
+        </p>
+        <div class="project-tech">
+          <span class="tag-alt">GCP</span>
+          <span class="tag-alt">AWS</span>
+          <span class="tag-alt">Databricks</span>
+          <span class="tag-alt">Snowflake</span>
+          <span class="tag-alt">MS Fabric</span>
+        </div>
+      </div>
+
+    </div>
   </section>
 
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">05. Contact</p>
+    <div class="contact-grid">
+      <div class="fade-up">
+        <p class="contact-tagline">
+          Let's build something <em>extraordinary</em> with data.
+        </p>
+        <p style="color:var(--light); margin-top:1.5rem; max-width:420px; font-size:0.95rem;">
+          Open to leadership roles, practice-building opportunities, and strategic consulting
+          in cloud data engineering, GenAI automation, and enterprise architecture.
+        </p>
+      </div>
+      <div class="contact-info fade-up">
+        <a href="tel:9167341227" class="contact-item">
+          <span class="contact-icon">📱</span>
+          <div>
+            <span class="contact-label">Phone</span>
+            <span class="contact-value">+91 9167341227</span>
+          </div>
+        </a>
+        <a href="mailto:post2sridhar@yahoo.co.in" class="contact-item">
+          <span class="contact-icon">✉️</span>
+          <div>
+            <span class="contact-label">Email</span>
+            <span class="contact-value">post2sridhar@yahoo.co.in</span>
+          </div>
+        </a>
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <div>
+            <span class="contact-label">Location</span>
+            <span class="contact-value">Pune, India</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p>© 2026 Sridhar | Built for GitHub Pages</p>
+    <p>© 2025 Sridhar S — Head of Data Engineering & AI</p>
+    <p>Built for GitHub Pages</p>
   </footer>
+
+  <script>
+    // Intersection Observer for fade-up animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, 80 * i);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Active nav highlight
+    const sections = document.querySelectorAll('section[id], .stats');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id || '';
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+      });
+    });
+  </script>
+
 </body>
 </html>
